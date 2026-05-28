@@ -1,4 +1,4 @@
-from playwright.sync_api import Page
+from playwright.sync_api import Page, expect
 import allure
 
 class PageAction:
@@ -78,7 +78,6 @@ class CinescopeRegisterPage(BasePage):
         super().__init__(page)
         self.url = f"{self.home_url}register"
 
-        # Локаторы элементов
         self.full_name_input = "input[name='fullName']"
         self.email_input = "input[name='email']"
         self.password_input = "input[name='password']"
@@ -104,6 +103,11 @@ class CinescopeRegisterPage(BasePage):
     def assert_allert_was_pop_up(self):
         self.check_pop_up_element_with_text("Подтвердите свою почту")
 
+    def assert_email_error_visible(self):
+        expect(self.page.get_by_text("Некорректный email")).to_be_visible()
+
+    def assert_password_error_visible(self):
+        expect(self.page.get_by_text("Пароли не совпдают")).to_be_visible()
 
 class CinescopeLoginPage(BasePage):
     def __init__(self, page: Page):
@@ -130,3 +134,6 @@ class CinescopeLoginPage(BasePage):
 
     def assert_allert_was_pop_up(self):
         self.check_pop_up_element_with_text("Вы вошли в аккаунт")
+
+    def assert_login_error_visible(self):
+        expect(self.page.get_by_text("Неверный пароль")).to_be_visible()
