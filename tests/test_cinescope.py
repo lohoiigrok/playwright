@@ -29,7 +29,7 @@ class TestLoginPage:
             browser.close()
 
     @pytest.mark.negative
-    @allure.title("Проведение входа с неправильным запросом")
+    @allure.title("Проведение входа с неправильным паролем")
     def test_login_with_invalid_password(self, registered_user):
         with sync_playwright() as playwright:
             browser = playwright.chromium.launch(
