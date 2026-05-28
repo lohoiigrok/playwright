@@ -19,7 +19,7 @@ class TestLoginPage:
         login_page.assert_allert_was_pop_up()
 
     @pytest.mark.negative
-    @allure.title("Проведение входа с неправильным запросом")
+    @allure.title("Проведение входа с неправильным паролем")
     def test_login_with_invalid_password(self, page, registered_user):
         login_page = CinescopeLoginPage(page)
         login_page.open()
@@ -33,6 +33,7 @@ class TestLoginPage:
 @allure.feature("Тестирование Страницы Register")
 @pytest.mark.ui
 class TestRegisterPage:
+    @pytest.mark.positive
     @allure.title("Проведение успешной регистрации")
     def test_register_by_ui(self, page):
         register_page = CinescopeRegisterPage(page)
@@ -61,7 +62,7 @@ class TestRegisterPage:
 
     @pytest.mark.negative
     @allure.title("Проведение регистрации с несовпадающим паролем")
-    def test_register_with_password_dismatch(self, page):
+    def test_register_with_password_mismatch(self, page):
         register_page = CinescopeRegisterPage(page)
         register_page.open()
         register_page.register(
